@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "562475732624",
+    "firebase_url": "https://startupindialivechat-84ea5.firebaseio.com",
+    "project_id": "startupindialivechat-84ea5",
+    "storage_bucket": "startupindialivechat-84ea5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562475732624:android:52a583a2d18871fb",
+        "android_client_info": {
+          "package_name": "com.example.android.startupindialivechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562475732624-09tk9ve1jm3v15shkd0980tih429n01j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.startupindialivechat",
+            "certificate_hash": "ad1f23fc36ef0b68a4ac9fed38ebe8e34d0ec63a"
+          }
+        },
+        {
+          "client_id": "562475732624-ifa6ih7dk7kkrhv7n5271bsl82qeb67u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB81g2LjQ-PieCzmtd6AKtzdmuiBOJvYHo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562475732624-ifa6ih7dk7kkrhv7n5271bsl82qeb67u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
