@@ -17,20 +17,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.startupindialivechat.Adapters.AdminActivityAdapter;
 import com.example.android.startupindialivechat.model.ChatMessage;
-import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import ai.api.AIListener;
 import ai.api.AIServiceException;
 import ai.api.android.AIConfiguration;
 import ai.api.android.AIDataService;
 import ai.api.android.AIService;
-import ai.api.model.AIError;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
@@ -60,7 +57,7 @@ public class ChatActivity extends AppCompatActivity  {
         listView= (ListView) findViewById(R.id.messageListView);
         chatMessages=new ArrayList<>();
 
-        adapter = new MessageAdapter(this, R.layout.item_chat_left, chatMessages);
+        adapter = new AdminActivityAdapter.MessageAdapter(this, R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);
 
 
@@ -225,4 +222,5 @@ public class ChatActivity extends AppCompatActivity  {
         }.execute(aiRequest);
 
     }
+    //TODO add check internet connection
 }

@@ -33,7 +33,7 @@ public class Authentication extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            startActivity(new Intent(this, ChatsActivity.class));
+            startActivity(new Intent(this, AdminPanelActivity.class));
             finish();
             return;
         }
@@ -49,7 +49,7 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void continueUser(View view) {
-        startActivity(new Intent(this, UserActivity.class));
+        startActivity(new Intent(this, ChatActivity.class));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Authentication extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == ResultCodes.OK) {
-                startActivity(new Intent(this, ChatsActivity.class));
+                startActivity(new Intent(this, AdminPanelActivity.class));
                 finish();
                 return;
             }
