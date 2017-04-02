@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.startupindialivechat.Adapters.AdminActivityAdapter;
+import com.example.android.startupindialivechat.Adapters.MessageAdapter;
 import com.example.android.startupindialivechat.model.ChatMessage;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class ChatActivity extends AppCompatActivity  {
         listView= (ListView) findViewById(R.id.messageListView);
         chatMessages=new ArrayList<>();
 
-        adapter = new AdminActivityAdapter.MessageAdapter(this, R.layout.item_chat_left, chatMessages);
+        adapter = new MessageAdapter(this, R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);
 
 
