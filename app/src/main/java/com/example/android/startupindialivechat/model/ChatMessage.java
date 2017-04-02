@@ -6,12 +6,15 @@ package com.example.android.startupindialivechat.model;
 
 public class ChatMessage {
     String text;
-
-    public ChatMessage(String text) {
-        this.text = text;
-    }
+    boolean isMine;
 
     public ChatMessage() {
+    }
+
+    public ChatMessage(String text, boolean isMine) {
+
+        this.text = text;
+        this.isMine = isMine;
     }
 
     public String getText() {
@@ -20,5 +23,13 @@ public class ChatMessage {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isMine() {
+        return isMine;
+    }
+
+    public void setMine(boolean mine) {
+        isMine = mine;
     }
 }
