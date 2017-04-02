@@ -10,4 +10,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.startupindialivechat.Authentication">
 
+    <Button
+        android:text="Sign In As Official"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:id="@+id/signInButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/com_facebook_button_send_background"
+        android:padding="10dp"
+        android:onClick="signInOfficial" />
+
+    <Button
+        android:text="Continue As User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:id="@+id/continueButton"
+        android:layout_below="@+id/signInButton"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/tw__login_btn_disabled"
+        android:padding="10dp"
+        android:onClick="continueUser" />
 </RelativeLayout>
