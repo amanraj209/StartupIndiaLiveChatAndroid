@@ -15,7 +15,6 @@
         android:id="@+id/frag_messageListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout"
         android:stackFromBottom="true"
         android:divider="@android:color/transparent"
         android:transcriptMode="alwaysScroll"
@@ -26,37 +25,7 @@
     <!--android:id="@+id/tv_answer"-->
     <!--/>-->
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/frag_btn_voice"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@android:drawable/ic_btn_speak_now" />
-
-        <EditText
-            android:id="@+id/frag_et_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/frag_btn_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:enabled="false"
-            android:text="Send"/>
-
-    </LinearLayout>
 
     <!--<ProgressBar-->
     <!--android:id="@+id/progressBar"-->

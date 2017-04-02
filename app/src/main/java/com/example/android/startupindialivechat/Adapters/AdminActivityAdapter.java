@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.example.android.startupindialivechat.R;
 import com.example.android.startupindialivechat.fragments.ChatFragment;
+import com.example.android.startupindialivechat.model.ActivePendingChatItem;
 import com.example.android.startupindialivechat.model.ChatMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,19 +23,29 @@ import java.util.List;
  */
 
 public class AdminActivityAdapter extends FragmentStatePagerAdapter {
-    public AdminActivityAdapter(FragmentManager fm) {
+    private Fragment[] fragments;
+    ArrayList<ActivePendingChatItem> pending, active;
+
+    public AdminActivityAdapter(FragmentManager fm, ArrayList<ActivePendingChatItem> pending, ArrayList<ActivePendingChatItem> active) {
         super(fm);
+        this.pending = pending;
+        this.active = active;
+        fragments=new Fragment[2];
     }
 
     @Override
 
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return ChatFragment.newInstance();
-        } else {
-            ChatFragment w = ChatFragment.newInstance();
-            return w;
+
+        if (fragments[position] == null) {
+            if (position == 0) {
+                fragments[position] = ChatFragment.newInstance(active);
+            } else {
+                fragments[position] = ChatFragment.newInstance(pending);
+
+            }
         }
+        return fragments[position];
 
     }
 

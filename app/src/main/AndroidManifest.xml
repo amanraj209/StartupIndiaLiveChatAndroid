@@ -13,16 +13,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Authentication">
+        </activity>
+
+        <activity
+            android:name=".ChatActivity"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity android:name=".AdminPanelActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ChatActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".AdminPanelActivity"></activity>
     </application>
 
 </manifest>

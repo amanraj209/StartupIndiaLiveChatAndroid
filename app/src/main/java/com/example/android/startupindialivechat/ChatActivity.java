@@ -33,7 +33,7 @@ import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
 
-public class ChatActivity extends AppCompatActivity  {
+public class ChatActivity extends AppCompatActivity {
     private Button voiceButton, textButton;
     private EditText editText;
     private TextView resultTextView;
@@ -45,7 +45,7 @@ public class ChatActivity extends AppCompatActivity  {
     private ArrayAdapter<ChatMessage> adapter;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private AIRequest aiRequest;
-    private AIDataService aiDataService;
+    private AIDataService aiDataService, aiDataServiceRedirect;
 
 
     @Override
@@ -55,8 +55,8 @@ public class ChatActivity extends AppCompatActivity  {
         editText = (EditText) findViewById(R.id.et_message);
         voiceButton = (Button) findViewById(R.id.btn_voice);
         textButton = (Button) findViewById(R.id.btn_text);
-        listView= (ListView) findViewById(R.id.messageListView);
-        chatMessages=new ArrayList<>();
+        listView = (ListView) findViewById(R.id.messageListView);
+        chatMessages = new ArrayList<>();
 
         adapter = new MessageAdapter(this, R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);
@@ -66,7 +66,13 @@ public class ChatActivity extends AppCompatActivity  {
                 AIConfiguration.SupportedLanguages.English,
                 AIConfiguration.RecognitionEngine.System);
 
+
+        final AIConfiguration redirecttextconfig = new AIConfiguration("8adba808dcb9447a8b789c0f8dec3b46",
+                AIConfiguration.SupportedLanguages.English,
+                AIConfiguration.RecognitionEngine.System);
+
         aiDataService = new AIDataService(getApplicationContext(), textconfig);
+        aiDataServiceRedirect = new AIDataService(getApplicationContext(), redirecttextconfig);
 
 
         aiRequest = new AIRequest();
@@ -96,8 +102,9 @@ public class ChatActivity extends AppCompatActivity  {
         textButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query=editText.getText().toString();
-               addChild(query);
+                String query = editText.getText().toString();
+                addChild(query, aiDataService,false);
+
 
             }
         });
@@ -121,7 +128,7 @@ public class ChatActivity extends AppCompatActivity  {
         });
     }
 
-//    @Override
+    //    @Override
 //    public void onResult(AIResponse response) {
 //        final Result result = response.getResult();
 //        final String speech = result.getFulfillment().getSpeech();
@@ -161,8 +168,8 @@ public class ChatActivity extends AppCompatActivity  {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getString(R.string.speech_prompt));
-        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS,2000);
-        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS,2000);
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000);
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 2000);
 
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
@@ -182,18 +189,21 @@ public class ChatActivity extends AppCompatActivity  {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    addChild(result.get(0));
+                    addChild(result.get(0), aiDataService,false);
                 }
                 break;
             }
 
         }
     }
-    protected void addChild(String query){
-        ChatMessage chatMessage = new ChatMessage(query, true);
-        chatMessages.add(chatMessage);
-        adapter.notifyDataSetChanged();
-        editText.setText("");
+
+    protected void addChild(final String query, final AIDataService ds, boolean isRedirected) {
+        if (!isRedirected) {
+            ChatMessage chatMessage = new ChatMessage(query, true);
+            chatMessages.add(chatMessage);
+            adapter.notifyDataSetChanged();
+            editText.setText("");
+        }
 
         aiRequest.setQuery(query);
         new AsyncTask<AIRequest, Void, AIResponse>() {
@@ -201,7 +211,7 @@ public class ChatActivity extends AppCompatActivity  {
             protected AIResponse doInBackground(AIRequest... requests) {
                 final AIRequest request = requests[0];
                 try {
-                    final AIResponse response = aiDataService.request(aiRequest);
+                    final AIResponse response = ds.request(aiRequest);
                     return response;
                 } catch (AIServiceException e) {
                 }
@@ -215,6 +225,11 @@ public class ChatActivity extends AppCompatActivity  {
                     final Result result = aiResponse.getResult();
                     final String speech = result.getFulfillment().getSpeech();
                     Log.d(TAG, "onPostExecute: " + speech);
+                    if (speech.equals("REDIRECT")) {
+                        addChild(query, aiDataServiceRedirect,true);
+                        return;
+                    }
+
                     ChatMessage chatMessage = new ChatMessage(speech, false);
                     chatMessages.add(chatMessage);
                     adapter.notifyDataSetChanged();
